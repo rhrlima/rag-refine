@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Refino</title>
+</head>
+<body>
+    <form action="/" method="post">
+    <div style="display: flex; justify-content: space-between;">
+        <!-- Coluna da esquerda -->
+        <div style="width: 45%;">
+
+            <label for="initial_over">Refino Inicial:</label><br>
+            <select id="initial_over" name="initial_over">
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8" selected>8</option>
+                <option value="9">9</option>
+            </select><br>
+
+            <label for="target_over">Refino Final:</label><br>
+            <select id="target_over" name="target_over">
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected>10</option>
+            </select><br>
+
+            <label for="equip_type">Equipamento:</label><br>
+            <select id="equip_type" name="equip_type">
+                <option value="armor">Armor</option>
+                <option value="weapon">Weapon</option>
+            </select><br>
+
+            <label for="use_bsb">Usar BSB</label><br>
+            <input type="checkbox" checked disabled><label for="use_bsb">Minério Enriquecido + BSB</label><br>
+            <input type="checkbox" disabled><label for="use_bsb">Minério Perfeito</label><br>
+
+            <input type="checkbox" id="over_4" name="over_4" value="true">
+            <label for="over_4">+4 >> +5</label><br>
+
+            <input type="checkbox" id="over_5" name="over_5" value="true">
+            <label for="over_5">+5 >> +6</label><br>
+
+            <input type="checkbox" id="over_6" name="over_6" value="true">
+            <label for="over_6">+6 >> +7</label><br>
+
+            <input type="checkbox" id="over_7" name="over_7" value="true">
+            <label for="over_7">+7 >> +8</label><br>
+
+            <input type="checkbox" id="over_8" name="over_8" value="true">
+            <label for="over_8">+8 >> +9</label><br>
+
+            <input type="checkbox" id="over_9" name="over_9" value="true">
+            <label for="over_9">+9 >> +10</label><br>
+
+
+
+            <input type="submit" value="Submit">
+        </div>
+        
+        <!-- Coluna da direita -->
+        <div style="width: 45%;">
+            <label for="bsb_price">Preço BSB:</label><br>
+            <input type="number" id="bsb_price" name="bsb_price" value="{{ defaults.bsb_price }}"><br>
+
+            <label for="enriched_elunium">Elunium Enriquecido:</label><br>
+            <input type="number" id="enriched_elunium" name="enriched_elunium" value="{{ defaults.ore_prices[1][0] }}"><br>
+
+            <label for="perfect_elunium">Elunium Perfeito:</label><br>
+            <input type="number" id="perfect_elunium" name="perfect_elunium" value="{{ defaults.ore_prices[1][1] }}"><br>
+
+            <label for="enriched_oridecom">Oridecom Enriquecido:</label><br>
+            <input type="number" id="enriched_oridecom" name="enriched_oridecom" value="{{ defaults.ore_prices[0][0] }}"><br>
+
+            <label for="perfect_oridecom">Oridecom Perfeito:</label><br>
+            <input type="number" id="perfect_oridecom" name="perfect_oridecom" value="{{ defaults.ore_prices[0][1] }}"><br>
+        </div>
+    </div>
+    </form>
+
+    <h2>Resultado:</h2>
+    {% if result %}
+        <p>
+            MELHOR CASO:<br/>
+            Minérios: {{ result.min.costs.ore }} ({{ result.min.resources.ore }})
+            BSB: {{ result.min.costs.bsb }} ({{ result.min.resources.bsb }})
+            Refino: {{ result.min.costs.over }}
+            Total: {{ result.min.costs.total }}
+        </p>
+        <p> PIOR CASO:<br/>
+            Minérios: {{ result.max.costs.ore }} ({{ result.max.resources.ore }})
+            BSB: {{ result.max.costs.bsb }} ({{ result.max.resources.bsb }})
+            Refino: {{ result.max.costs.over }}
+            Total: {{ result.max.costs.total }}
+        </p>
+        <p> CASO MÉDIO:<br/>
+            Minérios: {{ result.avg.ore_cost }} ({{ result.avg.ore }})
+            BSB: {{ result.avg.bsb_cost }} ({{ result.avg.bsb }})
+            Refino: {{ result.avg.over_cost }}
+            Total: {{ result.avg.total }}
+        </p>
+    {% endif %}
+
+</body>
+</html>
